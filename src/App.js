@@ -5,10 +5,14 @@ import { Switch, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import MessagesPage from './pages/MessagesPage'
+import DashboardPage from './pages/DashboardPage'
+import TenantsPage from './pages/TenantsPage'
+import IssuesPage from './pages/IssuesPage'
+import VotingPage from './pages/VotingPage'
 
 class App extends React.Component {
   render() {
-    // return <h1>lddldl</h1>
     return (
       <Switch>
         <Route exact path="/">
@@ -19,6 +23,21 @@ class App extends React.Component {
         </Route>
         <Route path="/signup">
           <SignupPage />
+        </Route>
+        <Route path="/dashboard">
+          <DashboardPage />
+        </Route>
+        <Route path="/tenants">
+          <TenantsPage />
+        </Route>
+        <Route path="/messages">
+          <MessagesPage />
+        </Route>
+        <Route path="/issues">
+          <IssuesPage />
+        </Route>
+        <Route path="/voting">
+          <VotingPage />
         </Route>
       </Switch>
   );
