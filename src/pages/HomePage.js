@@ -1,4 +1,5 @@
 import React from 'react'
+import MessageList from '../components/MessageList';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -8,7 +9,10 @@ class HomePage extends React.Component {
 
     render() { 
         return (  
+            <div>
             <h1>Home</h1>
+            <MessageList/>
+            </div>
         );
     }
 }
