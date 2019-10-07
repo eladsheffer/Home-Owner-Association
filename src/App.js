@@ -8,6 +8,7 @@ import SignupPage from './pages/SignupPage'
 
 class App extends React.Component {
   render() {
+    // return <h1>lddldl</h1>
     return (
       <Switch>
         <Route exact path="/">
