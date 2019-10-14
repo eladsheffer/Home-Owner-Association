@@ -23,11 +23,6 @@ class MessageList extends React.Component {
               let newMessage = new Message(message);
               this.state.messages.concat(newMessage);
             });
-            // for (let i = 0; i < res.data.length; i++) {
-            //   let newCar = new Car(res.data[i].brand, res.data[i].model, 
-            //     res.data[i].year, res.data[i].km);
-            //   this.state.cars.push(newCar);
-            // }
             
             this.state.isLoading = false;
             this.setState(this.state);
