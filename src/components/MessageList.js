@@ -6,10 +6,15 @@ import Message from '../data-model/Message';
 class MessageList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            
+        }
     }
 
     render() {
+
+
+        
         return (
             <div>
                 <Accordion defaultActiveKey="0">
