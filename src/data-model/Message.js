@@ -6,16 +6,16 @@ export class Message {
     //     this.priority = parseUser.get("priority");
     // }
 
-    constructor(titleOrObj, description, priority) {
+    constructor(titleOrObj, details, priority) {
         if (arguments.length === 1) {
           // This means that brandOrObj is Obj
           this.title = titleOrObj.brand;
-          this.description = titleOrObj.description;
+          this.details = titleOrObj.details;
           this.priority = titleOrObj.priority;       
         } else {
           // this means that brandOrObj is brand
           this.title = titleOrObj;
-          this.description = description;
+          this.details = details;
           this.priority = priority;
         }
         
