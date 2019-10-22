@@ -6,7 +6,23 @@ import MessageList from '../components/MessageList';
 class MessagesPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            filterText: "",
+            priorityFilter: "all",
+        }
+        this.filterSearch = this.filterSearch.bind(this);
+        
+        this.filterPriority = this.filterPriority.bind(this);
+    }
+
+    filterSearch(e) {
+        this.state.filterText = e.target.value;
+        this.setState(this.state);
+    }
+
+    filterPriority(e) {
+        this.state.priorityFilter = e.target.value;
+        this.setState(this.state);
     }
 
     render() {
@@ -17,15 +33,16 @@ class MessagesPage extends React.Component {
                 <Form>
                     <Form.Group as={Row} controlId="formFitler">
                         <Col sm={6}>
-                            <Form.Control className="rounded-pill" type="text" placeholder="Filter by Text in Title and Details" />
+                            <Form.Control onChange={this.filterSearch} className="rounded-pill" type="text" placeholder="Filter by Text in Title and Details" />
                         </Col>
                         <Col sm={2}>
-                            <Form.Control as="select">
-                                <option>Filter by Priority</option>
-                                <option>...</option>
+                            <Form.Control as="select" onChange={this.filterPriority}>
+                                <option value="all">-</option>
+                                <option value="info">Filter as info</option>
+                                <option value="important">Filter as important</option>
                             </Form.Control>
                         </Col>
-                        <Form.Label column sm={1}>
+                        <Form.Label column sm={2}>
                             Sort by:
                                 </Form.Label>
                         <Col sm={2}>
@@ -34,7 +51,7 @@ class MessagesPage extends React.Component {
                         </Col>
                     </Form.Group>
                 </Form>
-                <MessageList/>
+                <MessageList filterText={this.state.filterText} priorityFilter={this.state.priorityFilter}/>
             </div>
 
         );

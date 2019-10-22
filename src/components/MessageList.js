@@ -43,9 +43,10 @@ class MessageList extends React.Component {
             title: this.titleInput.current.value,
             details: this.detailsInput.current.value,
             priority: priority,
+            createdAt: new Date(),
             //img: this.state.newRecipeImg.URL,
         }
-
+        console.log(newMessage);
         this.state.messages.push(newMessage);
         this.setState(this.state);
         this.closeModal();
@@ -57,18 +58,22 @@ class MessageList extends React.Component {
     }
 
     updateMessage(index, updatedMessage) {
-        this.state.messages[index]=updatedMessage;
+        this.state.messages[index] = updatedMessage;
         this.setState(this.state);
     }
 
     render() {
         const { showModal } = this.state;
-
+        let filterText = this.props.filterText;
+        let priorityFilter=this.props.priorityFilter;
+        
         let messageCards = [];
         for (var i = 0; i < this.state.messages.length; i++) {
             this.state.index = i;
-            let messageCard = <MessageComp messageData={this.state.messages[i]} dataKey={this.state.index} deleteFunc={this.deleteMessage} updateFunc={this.updateMessage}/>
-            messageCards.push(messageCard);
+            if ((filterText === "" || this.state.messages[i].title.includes(filterText) || this.state.messages[i].details.includes(filterText)) && (priorityFilter==="all" || this.state.messages[i].priority===priorityFilter)) {
+                let messageCard = <MessageComp messageData={this.state.messages[i]} dataKey={this.state.index} deleteFunc={this.deleteMessage} updateFunc={this.updateMessage} />
+                messageCards.push(messageCard);
+            }
         }
 
         return (

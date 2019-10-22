@@ -2,16 +2,19 @@
     {
         "title": "please throw garbage only in the trash can",
         "details": "some tenants leave their garbage outside the trash can. please avoid this",
-        "priority": "info"
+        "priority": "info",
+        "createdAt": "2019-10-15"
     },
     {
         "title": "please don't forget to pay the monthly payment",
         "details": "due to a raise in the elevator payment - the new payment for each tenant is 300 NIS",
-        "priority": "info"
+        "priority": "info",
+        "createdAt": "2019-10-16"
     },
     {
         "title": "meeting of the tenants on 1/1/20",
         "details": "we would like to inform you about a meeting of all the tenants on 1/1/20",
-        "priority": "important"
+        "priority": "important",
+        "createdAt": "2019-10-17"
     }
 ]
