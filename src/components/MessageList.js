@@ -17,6 +17,7 @@ class MessageList extends React.Component {
         this.closeModal = this.closeModal.bind(this);
         this.createMessage = this.createMessage.bind(this);
         this.deleteMessage = this.deleteMessage.bind(this);
+        this.updateMessage = this.updateMessage.bind(this);
 
         this.titleInput = React.createRef();
         this.detailsInput = React.createRef();
@@ -47,12 +48,16 @@ class MessageList extends React.Component {
 
         this.state.messages.push(newMessage);
         this.setState(this.state);
-        console.log(newMessage);
         this.closeModal();
     }
 
     deleteMessage(index) {
         this.state.messages.splice(index, 1);
+        this.setState(this.state);
+    }
+
+    updateMessage(index, updatedMessage) {
+        this.state.messages[index]=updatedMessage;
         this.setState(this.state);
     }
 
@@ -62,7 +67,7 @@ class MessageList extends React.Component {
         let messageCards = [];
         for (var i = 0; i < this.state.messages.length; i++) {
             this.state.index = i;
-            let messageCard = <MessageComp messageData={this.state.messages[i]} dataKey={this.state.index} deleteFunc={this.deleteMessage} />
+            let messageCard = <MessageComp messageData={this.state.messages[i]} dataKey={this.state.index} deleteFunc={this.deleteMessage} updateFunc={this.updateMessage}/>
             messageCards.push(messageCard);
         }
 
