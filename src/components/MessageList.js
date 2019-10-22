@@ -46,7 +46,6 @@ class MessageList extends React.Component {
             createdAt: new Date(),
             //img: this.state.newRecipeImg.URL,
         }
-        console.log(newMessage);
         this.state.messages.push(newMessage);
         this.setState(this.state);
         this.closeModal();
@@ -62,15 +61,42 @@ class MessageList extends React.Component {
         this.setState(this.state);
     }
 
+
+
     render() {
+
+        function compare(a, b) {
+            if (a.priority === "info" && b.priority === "important") {
+                return -1;
+            }
+            if (b.priority === "info" && a.priority === "important") {
+                return 1;
+            }
+            // a must be equal to b
+            return 0;
+        }
+
         const { showModal } = this.state;
-        let filterText = this.props.filterText;
-        let priorityFilter=this.props.priorityFilter;
-        
+        let filterText = this.props.filterText.toLowerCase();
+        let priorityFilter = this.props.priorityFilter;
+
+        if (this.props.sortBy === "date")
+            this.state.messages.sort(function (a, b) { return Date.parse(b.createdAt) - Date.parse(a.createdAt) });
+        else if (this.props.sortBy === "priority")
+            this.state.messages.sort((function (a, b) {
+                if (b.priority === "info" && a.priority === "important") {
+                    return -1;
+                }
+                if (a.priority === "info" && b.priority === "important") {
+                    return 1;
+                }
+                // a must be equal to b
+                return 0;
+            }));
         let messageCards = [];
         for (var i = 0; i < this.state.messages.length; i++) {
             this.state.index = i;
-            if ((filterText === "" || this.state.messages[i].title.includes(filterText) || this.state.messages[i].details.includes(filterText)) && (priorityFilter==="all" || this.state.messages[i].priority===priorityFilter)) {
+            if ((filterText === "" || this.state.messages[i].title.toLowerCase().includes(filterText) || this.state.messages[i].details.toLowerCase().includes(filterText)) && (priorityFilter === "all" || this.state.messages[i].priority === priorityFilter)) {
                 let messageCard = <MessageComp messageData={this.state.messages[i]} dataKey={this.state.index} deleteFunc={this.deleteMessage} updateFunc={this.updateMessage} />
                 messageCards.push(messageCard);
             }

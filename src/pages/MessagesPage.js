@@ -9,10 +9,11 @@ class MessagesPage extends React.Component {
         this.state = {
             filterText: "",
             priorityFilter: "all",
+            sortBy: "date",
         }
         this.filterSearch = this.filterSearch.bind(this);
-        
         this.filterPriority = this.filterPriority.bind(this);
+        this.changeSort = this.changeSort.bind(this);
     }
 
     filterSearch(e) {
@@ -22,6 +23,11 @@ class MessagesPage extends React.Component {
 
     filterPriority(e) {
         this.state.priorityFilter = e.target.value;
+        this.setState(this.state);
+    }
+
+    changeSort(e){
+        this.state.sortBy = e.target.id;
         this.setState(this.state);
     }
 
@@ -37,7 +43,7 @@ class MessagesPage extends React.Component {
                         </Col>
                         <Col sm={2}>
                             <Form.Control as="select" onChange={this.filterPriority}>
-                                <option value="all">-</option>
+                                <option value="all">All Messages</option>
                                 <option value="info">Filter as info</option>
                                 <option value="important">Filter as important</option>
                             </Form.Control>
@@ -46,12 +52,12 @@ class MessagesPage extends React.Component {
                             Sort by:
                                 </Form.Label>
                         <Col sm={2}>
-                            <Form.Check ref={this.priorityInput} defaultChecked inline type="radio" label="Date" name="formHorizontalRadios" id="formHorizontalInfo" />
-                            <Form.Check inline type="radio" label="Priority" name="formHorizontalRadios" id="formHorizontalImportant" />
+                            <Form.Check onChange={this.changeSort} ref={this.dateInput} defaultChecked inline type="radio" label="Date" name="formHorizontalRadios" id="date" />
+                            <Form.Check onChange={this.changeSort} inline type="radio" label="Priority" name="formHorizontalRadios" id="priority" />
                         </Col>
                     </Form.Group>
                 </Form>
-                <MessageList filterText={this.state.filterText} priorityFilter={this.state.priorityFilter}/>
+                <MessageList filterText={this.state.filterText} priorityFilter={this.state.priorityFilter} sortBy={this.state.sortBy}/>
             </div>
 
         );

@@ -18,6 +18,8 @@ class MessageComp extends React.Component {
         this.importantInput = React.createRef();
         this.imgInput = React.createRef();
     }
+
+    
     deleteMessage() {
         this.props.deleteFunc(this.props.dataKey);
     }
