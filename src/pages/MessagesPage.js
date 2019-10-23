@@ -1,6 +1,6 @@
 import React from 'react'
 import HoaNavbar from '../components/HoaNavbar';
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Container } from 'react-bootstrap'
 import MessageList from '../components/MessageList';
 
 class MessagesPage extends React.Component {
@@ -35,6 +35,7 @@ class MessagesPage extends React.Component {
         return (
             <div>
                 <HoaNavbar />
+                <Container>
                 <h1>Messages</h1>
                 <Form>
                     <Form.Group as={Row} controlId="formFitler">
@@ -58,6 +59,7 @@ class MessagesPage extends React.Component {
                     </Form.Group>
                 </Form>
                 <MessageList filterText={this.state.filterText} priorityFilter={this.state.priorityFilter} sortBy={this.state.sortBy}/>
+                </Container>
             </div>
 
         );

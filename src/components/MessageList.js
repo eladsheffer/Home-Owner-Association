@@ -104,8 +104,8 @@ class MessageList extends React.Component {
 
         return (
             <div>
-                <Container className="ml-auto">
-                    <Button variant="link" onClick={this.openModal}>New Message</Button>
+                <Container className="d-flex">
+                    <Button className="ml-auto" variant="link" onClick={this.openModal}>New Message</Button>
                 </Container>
                 <Accordion defaultActiveKey="0">
                     {messageCards}

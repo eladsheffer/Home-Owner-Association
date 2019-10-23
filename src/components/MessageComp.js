@@ -1,16 +1,31 @@
 import React from 'react'
 import { Accordion, Card, Button, Modal, Image, Form, Row, Col } from 'react-bootstrap'
 
+class Important extends React.Component {
+    render() {
+        return <Image src="icons/important.png" rounded />
+    }
+}
+
+class Info extends React.Component {
+    render() {
+        return <Image src="icons/info.png" rounded />
+    }
+}
+
 class MessageComp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showModal: false,
+            showUpdateModal: false,
+            showDeleteModal: false,
         }
         this.deleteMessage = this.deleteMessage.bind(this);
         this.updateMessage = this.updateMessage.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
+        this.openUpdateModal = this.openUpdateModal.bind(this);
+        this.closeUpdateModal = this.closeUpdateModal.bind(this);
+        this.openDeleteModal = this.openDeleteModal.bind(this);
+        this.closeDeleteModal = this.closeDeleteModal.bind(this);
 
         this.titleInput = React.createRef();
         this.detailsInput = React.createRef();
@@ -19,9 +34,10 @@ class MessageComp extends React.Component {
         this.imgInput = React.createRef();
     }
 
-    
+
     deleteMessage() {
         this.props.deleteFunc(this.props.dataKey);
+        this.closeDeleteModal();
     }
 
     updateMessage() {
@@ -32,18 +48,26 @@ class MessageComp extends React.Component {
         else
             this.props.messageData.priority = "important";
         this.props.updateFunc(this.props.dataKey, this.props.messageData);
-        this.closeModal();
+        this.closeUpdateModal();
     }
-    openModal() {
-        this.setState({ showModal: true })
+    openUpdateModal() {
+        this.setState({ showUpdateModal: true })
     }
 
-    closeModal() {
-        this.setState({ showModal: false })
+    closeUpdateModal() {
+        this.setState({ showUpdateModal: false })
+    }
+
+    openDeleteModal() {
+        this.setState({ showDeleteModal: true })
+    }
+
+    closeDeleteModal() {
+        this.setState({ showDeleteModal: false })
     }
 
     componentDidUpdate() {
-        if (this.state.showModal)
+        if (this.state.showUpdateModal)
             if (this.props.messageData.priority === "info")
                 this.infoInput.current.checked = true;
             else
@@ -51,9 +75,9 @@ class MessageComp extends React.Component {
     }
 
     render() {
-        const { showModal } = this.state;
-
-
+        const { showUpdateModal } = this.state;
+        const { showDeleteModal } = this.state;
+        let icon = this.props.messageData.priority === "info" ? <Info /> : <Important />;
         return (
             <div>
                 <Card>
@@ -61,6 +85,7 @@ class MessageComp extends React.Component {
                         <Accordion.Toggle as={Button} variant="link" eventKey={this.props.dataKey}>
                             {this.props.messageData.title}
                         </Accordion.Toggle>
+                        <span className="priority-icon">  {icon} </span>
                     </Card.Header>
                     <Accordion.Collapse eventKey={this.props.dataKey}>
                         <Card.Body>
@@ -71,14 +96,14 @@ class MessageComp extends React.Component {
                                 priority: {this.props.messageData.priority}
                             </div>
                             <div>
-                                <Button onClick={this.deleteMessage} variant="primary">Delete Message</Button>
-                                <Button onClick={this.openModal} variant="primary">Update Message</Button>
+                                <Button onClick={this.openDeleteModal} variant="primary">Delete Message</Button>
+                                <Button onClick={this.openUpdateModal} variant="primary">Update Message</Button>
                             </div>
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
 
-                <Modal show={showModal} onHide={this.closeModal} size="lg">
+                <Modal show={showUpdateModal} onHide={this.closeUpdateModal} size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title>Message Update</Modal.Title>
                     </Modal.Header>
@@ -123,7 +148,7 @@ class MessageComp extends React.Component {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.closeModal}>
+                        <Button variant="secondary" onClick={this.closeUpdateModal}>
                             Close
                     </Button>
                         <Button variant="primary" onClick={this.updateMessage}>
@@ -131,6 +156,23 @@ class MessageComp extends React.Component {
                     </Button>
                     </Modal.Footer>
                 </Modal>
+
+                
+                <Modal show={showDeleteModal} onHide={this.closeDeleteModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete Message</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <p>Are you sure?</p>
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.closeDeleteModal}>Cancel</Button>
+                        <Button variant="primary" onClick={this.deleteMessage}>Yes</Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
         );
     }
