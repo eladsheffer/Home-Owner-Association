@@ -10,8 +10,19 @@ import DashboardPage from './pages/DashboardPage'
 import TenantsPage from './pages/TenantsPage'
 import IssuesPage from './pages/IssuesPage'
 import VotingPage from './pages/VotingPage'
+import jsonMessages from './data-model/messages'
+import jsonUsers from './data-model/users'
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeUser: null,
+      allUsers: jsonUsers,
+      allMessages: jsonMessages,
+    }
+  }
+  
   render() {
     return (
       <Switch>

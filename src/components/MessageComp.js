@@ -96,7 +96,7 @@ class MessageComp extends React.Component {
                                 priority: {this.props.messageData.priority}
                             </div>
                             <div>
-                                <Button onClick={this.openDeleteModal} variant="primary">Delete Message</Button>
+                                <Button onClick={this.openDeleteModal} variant="danger">Delete Message</Button>
                                 <Button onClick={this.openUpdateModal} variant="primary">Update Message</Button>
                             </div>
                         </Card.Body>
@@ -169,7 +169,7 @@ class MessageComp extends React.Component {
 
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.closeDeleteModal}>Cancel</Button>
-                        <Button variant="primary" onClick={this.deleteMessage}>Yes</Button>
+                        <Button variant="danger" onClick={this.deleteMessage}>Yes</Button>
                     </Modal.Footer>
                 </Modal>
 

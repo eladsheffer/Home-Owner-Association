@@ -1,6 +1,6 @@
 import React from 'react'
 import HoaNavbar from '../components/HoaNavbar';
-import { Form, Row, Col, Container } from 'react-bootstrap'
+import { Form, Row, Col, Container, Image } from 'react-bootstrap'
 import MessageList from '../components/MessageList';
 
 class MessagesPage extends React.Component {
@@ -40,7 +40,7 @@ class MessagesPage extends React.Component {
                 <Form>
                     <Form.Group as={Row} controlId="formFitler">
                         <Col sm={6}>
-                            <Form.Control onChange={this.filterSearch} className="rounded-pill" type="text" placeholder="Filter by Text in Title and Details" />
+                            <Form.Control inline onChange={this.filterSearch} className="rounded-pill" type="text" placeholder="Filter by Text in Title and Details" />
                         </Col>
                         <Col sm={2}>
                             <Form.Control as="select" onChange={this.filterPriority}>

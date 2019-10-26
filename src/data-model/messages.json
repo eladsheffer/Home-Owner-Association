@@ -3,7 +3,14 @@
         "title": "please throw garbage only in the trash can",
         "details": "some tenants leave their garbage outside the trash can. please avoid this",
         "priority": "info",
-        "createdAt": "2019-10-15"
+        "createdAt": "2019-10-15",
+        "comments": [
+            {
+                "userId": 1,
+                "createdAt": "2019-10-16",
+                "text": "blablalbs"
+            }
+        ]
     },
     {
         "title": "please don't forget to pay the monthly payment",

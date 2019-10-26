@@ -28,3 +28,9 @@
 Button{
   margin: 10px;
 }
+
+.login {
+  max-width: 500px;
+  margin: 50px auto;
+
+}

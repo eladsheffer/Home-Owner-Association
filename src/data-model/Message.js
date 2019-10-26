@@ -9,7 +9,7 @@ export class Message {
     constructor(titleOrObj, details, priority, createdBy, createAt, comments) {
         if (arguments.length === 1) {
           // This means that titleOrObj is Obj
-          this.title = titleOrObj.brand;
+          this.title = titleOrObj.title;
           this.details = titleOrObj.details;
           this.priority = titleOrObj.priority;    
           this.createdBy = new Date();

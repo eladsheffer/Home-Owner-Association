@@ -1,0 +1,31 @@
+[
+    {
+        "id": 1,
+        "communityId": 1,
+        "name": "Nir Channes",
+        "email": "nir@nir.com",
+        "password": "123",
+        "apartment": 1,
+        "isCommitteeMember": true
+    },
+    {
+        "id": 2,
+        "communityId": 1,
+        "name": "Elad Sheffer",
+        "email": "elad@elad.com",
+        "password": "123",
+        "apartment": 2,
+        "isCommitteeMember": true
+    },
+    {
+        "id": 3,
+        "communityId": 1,
+        "name": "John Doe",
+        "email": "john@john.com",
+        "password": "123",
+        "apartment": 3,
+        "isCommitteeMember": false
+    }
+
+    
+]
