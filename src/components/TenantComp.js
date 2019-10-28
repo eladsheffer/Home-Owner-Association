@@ -1,6 +1,21 @@
 import React from 'react'
 import { Accordion, Card, Button, Modal, Image, Form, Row, Col } from 'react-bootstrap'
 
+class CommitteeMemberView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
+    render() {
+        return <div>
+            <Button onClick={this.props.showDeleteModal} variant="danger">Delete Message</Button>
+            <Button onClick={this.props.showUpdateModal} variant="primary">Update Message</Button>
+        </div>
+    }
+}
+
 class TenantComp extends React.Component {
     constructor(props) {
         super(props);
@@ -22,9 +37,8 @@ class TenantComp extends React.Component {
         this.imgInput = React.createRef();
     }
 
-
     deleteTenant() {
-        this.props.deleteFunc(this.props.dataKey);
+        this.props.deleteTenant(this.props.dataKey);
         this.closeDeleteModal();
     }
 
@@ -33,9 +47,10 @@ class TenantComp extends React.Component {
         this.props.tenantData.email = this.emailInput.current.value;
         this.props.tenantData.password = this.passwordInput.current.value;
         this.props.tenantData.apartment = this.apartmentInput.current.value;
-        this.props.updateFunc(this.props.dataKey, this.props.tenantData);
+        this.props.updateTenant(this.props.dataKey, this.props.tenantData);
         this.closeUpdateModal();
     }
+
     openUpdateModal() {
         this.setState({ showUpdateModal: true })
     }
@@ -55,7 +70,8 @@ class TenantComp extends React.Component {
     render() {
         const { showUpdateModal } = this.state;
         const { showDeleteModal } = this.state;
-        
+       
+        let committeeMemberView = true ? <CommitteeMemberView showUpdateModal={this.openUpdateModal} showDeleteModal={this.openDeleteModal}/> : null;
         return (
             <div>
                 <Card>
@@ -72,10 +88,7 @@ class TenantComp extends React.Component {
                             <div>
                             Apartment: {this.props.tenantData.apartment}
                             </div>
-                            <div>
-                                <Button onClick={this.openDeleteModal} variant="danger">Delete Tenant</Button>
-                                <Button onClick={this.openUpdateModal} variant="primary">Update Tenant</Button>
-                            </div>
+                            {committeeMemberView}
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>

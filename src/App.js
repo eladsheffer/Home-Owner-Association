@@ -17,25 +17,37 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      index:0,
+      index: 0,
       activeUser: null,
       allUsers: jsonUsers,
       allMessages: jsonMessages,
     }
     this.deleteMessage = this.deleteMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
+    this.deleteTenant = this.deleteTenant.bind(this);
+    this.updateTenant = this.updateTenant.bind(this);
   }
 
   deleteMessage(index) {
     this.state.allMessages.splice(index, 1);
     this.setState(this.state);
-}
+  }
 
-updateMessage(index, updatedMessage) {
+  updateMessage(index, updatedMessage) {
     this.state.allMessages[index] = updatedMessage;
     this.setState(this.state);
-}
-  
+  }
+
+  deleteTenant(index) {
+    this.state.allUsers.splice(index, 1);
+    this.setState(this.state);
+  }
+
+  updateTenant(index, updatedTenant) {
+    this.state.allUsers[index] = updatedTenant;
+    this.setState(this.state);
+  }
+
   render() {
     return (
       <Switch>
@@ -52,10 +64,10 @@ updateMessage(index, updatedMessage) {
           <DashboardPage />
         </Route>
         <Route path="/tenants">
-          <TenantsPage />
+          <TenantsPage tenants={this.state.allUsers} dataKey={this.state.index} deleteTenant={this.deleteTenant} updateTenant={this.updateTenant} />
         </Route>
         <Route path="/messages">
-          <MessagesPage messages={this.state.allMessages} dataKey={this.state.index} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage}/>
+          <MessagesPage messages={this.state.allMessages} dataKey={this.state.index} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage} />
         </Route>
         <Route path="/issues">
           <IssuesPage />
@@ -64,7 +76,7 @@ updateMessage(index, updatedMessage) {
           <VotingPage />
         </Route>
       </Switch>
-  );
+    );
   }
 }
 

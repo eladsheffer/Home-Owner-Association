@@ -2,7 +2,6 @@ import React from 'react'
 import HoaNavbar from '../components/HoaNavbar';
 import { Form, Row, Col, Container, Image, Button, Modal } from 'react-bootstrap'
 import MessageList from '../components/MessageList';
-import jsonmessages from '../data-model/messages';
 
 class MessagesPage extends React.Component {
     constructor(props) {
