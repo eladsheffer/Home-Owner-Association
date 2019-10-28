@@ -17,11 +17,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      index:0,
       activeUser: null,
       allUsers: jsonUsers,
       allMessages: jsonMessages,
     }
+    this.deleteMessage = this.deleteMessage.bind(this);
+    this.updateMessage = this.updateMessage.bind(this);
   }
+
+  deleteMessage(index) {
+    this.state.allMessages.splice(index, 1);
+    this.setState(this.state);
+}
+
+updateMessage(index, updatedMessage) {
+    this.state.allMessages[index] = updatedMessage;
+    this.setState(this.state);
+}
   
   render() {
     return (
@@ -42,7 +55,7 @@ class App extends React.Component {
           <TenantsPage />
         </Route>
         <Route path="/messages">
-          <MessagesPage messages={this.state.allMessages}/>
+          <MessagesPage messages={this.state.allMessages} dataKey={this.state.index} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage}/>
         </Route>
         <Route path="/issues">
           <IssuesPage />

@@ -13,6 +13,21 @@ class Info extends React.Component {
     }
 }
 
+class CommitteeMemberView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
+    render() {
+        return <div>
+            <Button onClick={this.props.showDeleteModal} variant="danger">Delete Message</Button>
+            <Button onClick={this.props.showUpdateModal} variant="primary">Update Message</Button>
+        </div>
+    }
+}
+
 class MessageComp extends React.Component {
     constructor(props) {
         super(props);
@@ -36,7 +51,7 @@ class MessageComp extends React.Component {
 
 
     deleteMessage() {
-        this.props.deleteFunc(this.props.dataKey);
+        this.props.deleteMessage(this.props.dataKey);
         this.closeDeleteModal();
     }
 
@@ -47,7 +62,7 @@ class MessageComp extends React.Component {
             this.props.messageData.priority = "info";
         else
             this.props.messageData.priority = "important";
-        this.props.updateFunc(this.props.dataKey, this.props.messageData);
+        this.props.updateMessage(this.props.dataKey, this.props.messageData);
         this.closeUpdateModal();
     }
     openUpdateModal() {
@@ -78,6 +93,7 @@ class MessageComp extends React.Component {
         const { showUpdateModal } = this.state;
         const { showDeleteModal } = this.state;
         let icon = this.props.messageData.priority === "info" ? <Info /> : <Important />;
+        let committeeMemberView = true ? <CommitteeMemberView showUpdateModal={this.openUpdateModal} showDeleteModal={this.openDeleteModal}/> : null;
         return (
             <div>
                 <Card>
@@ -95,10 +111,7 @@ class MessageComp extends React.Component {
                             <div>
                                 priority: {this.props.messageData.priority}
                             </div>
-                            <div>
-                                <Button onClick={this.openDeleteModal} variant="danger">Delete Message</Button>
-                                <Button onClick={this.openUpdateModal} variant="primary">Update Message</Button>
-                            </div>
+                            {committeeMemberView}
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -157,7 +170,7 @@ class MessageComp extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                
+
                 <Modal show={showDeleteModal} onHide={this.closeDeleteModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete Message</Modal.Title>

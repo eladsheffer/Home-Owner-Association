@@ -11,35 +11,21 @@ class MessageList extends React.Component {
             index: 0,
         }
 
-        this.deleteMessage = this.deleteMessage.bind(this);
-        this.updateMessage = this.updateMessage.bind(this);
+
     }
-
-   
-
-    deleteMessage(index) {
-        this.props.messages.splice(index, 1);
-        this.setState(this.state);
-    }
-
-    updateMessage(index, updatedMessage) {
-        this.props.messages[index] = updatedMessage;
-        this.setState(this.state);
-    }
-
-
 
     render() {
         const { messages } = this.props;
 
-        let messageCards = [];
-        for (var i = 0; i < messages.length; i++) {
-            this.state.index = i;
+        // let messageCards = [];
+        // for (var i = 0; i < messages.length; i++) {
 
-            let messageCard = <MessageComp messageData={messages[i]} dataKey={this.state.index} deleteFunc={this.deleteMessage} updateFunc={this.updateMessage} />
-            messageCards.push(messageCard);
+        //     let messageCard = <MessageComp dataKey={i} messageData={messages[i]}  />
+        //     messageCards.push(messageCard);
 
-        }
+        // }
+
+        const messageCards = messages.map((message, index) => <MessageComp dataKey={index} messageData={message}  deleteMessage={this.props.deleteMessage} updateMessage={this.props.updateMessage} />)
 
         return (
             <div>

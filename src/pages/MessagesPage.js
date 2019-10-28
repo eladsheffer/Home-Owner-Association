@@ -80,7 +80,7 @@ class MessagesPage extends React.Component {
         if (this.state.sortBy === "date")
             this.props.messages.sort(function (a, b) { return Date.parse(b.createdAt) - Date.parse(a.createdAt) });
         else if (this.state.sortBy === "priority")
-            this.props.messages.sort((function (a, b) {
+            this.props.messages.sort(function (a, b) { return Date.parse(b.createdAt) - Date.parse(a.createdAt) }).sort((function (a, b) {
                 if (b.priority === "info" && a.priority === "important") {
                     return -1;
                 }
@@ -127,7 +127,7 @@ class MessagesPage extends React.Component {
                     <Container className="d-flex">
                         <Button className="ml-auto" variant="link" onClick={this.openModal}>New Message</Button>
                     </Container>
-                    <MessageList messages={messagesToDisplay} />
+                    <MessageList messages={messagesToDisplay} deleteMessage={this.props.deleteMessage} updateMessage={this.props.updateMessage}/>
                 </Container>
 
                 <Modal show={showModal} onHide={this.closeModal} size="lg">
