@@ -42,7 +42,7 @@ class App extends React.Component {
           <TenantsPage />
         </Route>
         <Route path="/messages">
-          <MessagesPage />
+          <MessagesPage messages={this.state.allMessages}/>
         </Route>
         <Route path="/issues">
           <IssuesPage />
