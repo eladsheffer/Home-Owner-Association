@@ -17,24 +17,28 @@ class App extends React.Component {
     super(props);
     this.state = {
       index: 0,
-      activeUser: null,
-    //   activeUser:     {
-    //     "id": 1,
-    //     "communityId": 1,
-    //     "name": "Nir Channes",
-    //     "email": "nir@nir.com",
-    //     "password": "123",
-    //     "apartment": 1,
-    //     "isCommitteeMember": true
-    // },
+      //activeUser: null,
+      activeUser: {
+        "id": 1,
+        "communityId": 1,
+        "name": "Nir Channes",
+        "email": "nir@nir.com",
+        "password": "123",
+        "apartment": 1,
+        "isCommitteeMember": true
+      },
       allUsers: jsonUsers,
       allMessages: jsonMessages,
-      activeUserMessages: []
-      //activeUserMessages: jsonMessages.filter(message => message.communityId === 1)
+      //activeUserMessages: [],
+      //activeUserMessages:[],
+      activeUserMessages: jsonMessages.filter(message => message.communityId === 1),
+      activeUserTenants: jsonUsers.filter(tenant => tenant.communityId === 1),
     }
     this.createMessage = this.createMessage.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
+
+    this.createTenant = this.createTenant.bind(this);
     this.deleteTenant = this.deleteTenant.bind(this);
     this.updateTenant = this.updateTenant.bind(this);
 
@@ -42,75 +46,121 @@ class App extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  createMessage(newMessage){
-    newMessage.communityId=this.state.activeUser.communityId;
+  createMessage(newMessage) {
+    newMessage.communityId = this.state.activeUser.communityId;
+    newMessage.id = this.state.allMessages[this.state.allMessages.length - 1].id + 1;
 
     const allMessages = this.state.allMessages.concat(newMessage);
     const activeUserMessages = this.state.activeUserMessages.concat(newMessage);
 
-    this.setState({allMessages, activeUserMessages});
+    this.setState({ allMessages, activeUserMessages });
   }
 
-  deleteMessage(index) {
-    this.state.allMessages.splice(index, 1);
+  createTenant(newTenant) {
+    newTenant.communityId = this.state.activeUser.communityId;
+    newTenant.id = this.state.allUsers[this.state.allUsers.length - 1].id + 1;
+
+    const allUsers = this.state.allUsers.concat(newTenant);
+    const activeUserTenants = this.state.activeUserTenants.concat(newTenant);
+
+    this.setState({ allUsers, activeUserTenants });
+  }
+
+  deleteMessage(message, index) {
+    this.state.activeUserMessages.splice(index, 1);
+
+    for (let i = 0; i < this.state.allMessages.length; i++) {
+      if (this.state.allMessages[i].id === message.id) {
+        this.state.allMessages.splice(i, 1);
+        break;
+      }
+    }
+
     this.setState(this.state);
   }
 
-  updateMessage(index, updatedMessage) {
-    this.state.allMessages[index] = updatedMessage;
+  updateMessage(updatedMessage, index) {
+    this.state.activeUserMessages[index] = updatedMessage;
+
+    for (let i = 0; i < this.state.allMessages.length; i++) {
+      if (this.state.allMessages[i].id === updatedMessage.id) {
+        this.state.allMessages[i] =this.updatedMessage;
+        break;
+      }
+    }
+
+    this.setState(this.state);
+
+    console.log(index);
+    console.log(updatedMessage);
+    console.log(this.state.activeUserMessages);
+    console.log(this.state.allMessages);
+  }
+
+  deleteTenant(tenant, index) {
+    this.state.activeUserTenants.splice(index, 1);
+
+    for (let i = 0; i < this.state.allUsers.length; i++) {
+      if (this.state.allUsers[i].id === tenant.id) {
+        this.state.allUsers.splice(i, 1);
+        break;
+      }
+    }
     this.setState(this.state);
   }
 
-  deleteTenant(index) {
-    this.state.allUsers.splice(index, 1);
-    this.setState(this.state);
-  }
-
-  updateTenant(index, updatedTenant) {
-    this.state.allUsers[index] = updatedTenant;
+  updateTenant(updatedTenant, index) {
+    this.state.activeUserTenants[index] = updatedTenant;
+    for (let i = 0; i < this.state.allUsers.length; i++) {
+      if (this.state.allUsers[i].id === this.updateTenant.id) {
+        this.state.allMessages[i] =this.updatedTenant;
+        break;
+      }
+    }
     this.setState(this.state);
   }
 
   handleLogout() {
-    this.setState({activeUser: null});
+    this.setState({ activeUser: null });
   }
 
   handleLogin(activeUser) {
 
     const activeUserMessages = this.state.allMessages.filter(message => message.communityId === activeUser.communityId)
+    const activeUserTenants = this.state.allUsers.filter(tenant => tenant.communityId === activeUser.communityId)
 
-    this.setState({activeUser, activeUserMessages});
+    this.setState({ activeUser, activeUserMessages, activeUserTenants });
   }
 
   render() {
 
-    const { activeUser, allUsers, activeUserMessages } = this.state;
+    const { activeUser, allUsers, activeUserMessages, activeUserTenants } = this.state;
 
     return (
       <Switch>
         <Route exact path="/">
-          <HomePage activeUser={activeUser} handleLogout={this.handleLogout}/>
+          <HomePage activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/login">
-          <LoginPage users={allUsers} handleLogin={this.handleLogin} activeUser={activeUser}/>
+          <LoginPage users={allUsers} handleLogin={this.handleLogin} activeUser={activeUser} />
         </Route>
         <Route path="/signup">
-          <SignupPage activeUser={activeUser} handleLogout={this.handleLogout}/>
+          <SignupPage activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/dashboard">
-          <DashboardPage activeUser={activeUser} handleLogout={this.handleLogout}/>
+          <DashboardPage activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/tenants">
-          <TenantsPage tenants={this.state.allUsers} dataKey={this.state.index} deleteTenant={this.deleteTenant} updateTenant={this.updateTenant} activeUser={activeUser} handleLogout={this.handleLogout}/>
+          <TenantsPage tenants={activeUserTenants} dataKey={this.state.index} deleteTenant={this.deleteTenant} updateTenant={this.updateTenant} createTenant={this.createTenant} activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/messages">
-          <MessagesPage messages={this.state.activeUserMessages} dataKey={this.state.index} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage} createMessage={this.createMessage} activeUser={activeUser} handleLogout={this.handleLogout}/>
+          <MessagesPage messages={activeUserMessages} dataKey={this.state.index} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage} createMessage={this.createMessage} activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/issues">
-          <IssuesPage activeUser={activeUser} handleLogout={this.handleLogout}/>
+          <IssuesPage activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/voting">
-          <VotingPage activeUser={activeUser} handleLogout={this.handleLogout}/>
+          <VotingPage activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
       </Switch>
     );

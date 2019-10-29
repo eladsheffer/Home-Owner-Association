@@ -10,8 +10,8 @@ class CommitteeMemberView extends React.Component {
     }
     render() {
         return <div>
-            <Button onClick={this.props.showDeleteModal} variant="danger">Delete Message</Button>
-            <Button onClick={this.props.showUpdateModal} variant="primary">Update Message</Button>
+            <Button onClick={this.props.showDeleteModal} variant="danger">Delete Tenant</Button>
+            <Button onClick={this.props.showUpdateModal} variant="primary">Update Tenant</Button>
         </div>
     }
 }
@@ -38,7 +38,7 @@ class TenantComp extends React.Component {
     }
 
     deleteTenant() {
-        this.props.deleteTenant(this.props.dataKey);
+        this.props.deleteTenant(this.props.tenantData, this.props.dataKey);
         this.closeDeleteModal();
     }
 
@@ -47,7 +47,7 @@ class TenantComp extends React.Component {
         this.props.tenantData.email = this.emailInput.current.value;
         this.props.tenantData.password = this.passwordInput.current.value;
         this.props.tenantData.apartment = this.apartmentInput.current.value;
-        this.props.updateTenant(this.props.dataKey, this.props.tenantData);
+        this.props.updateTenant(this.props.tenantData, this.props.dataKey);
         this.closeUpdateModal();
     }
 
@@ -70,8 +70,9 @@ class TenantComp extends React.Component {
     render() {
         const { showUpdateModal } = this.state;
         const { showDeleteModal } = this.state;
-       
-        let committeeMemberView = true ? <CommitteeMemberView showUpdateModal={this.openUpdateModal} showDeleteModal={this.openDeleteModal}/> : null;
+        const { activeUser } = this.props;
+
+        let committeeMemberView = activeUser.isCommitteeMember ? <CommitteeMemberView showUpdateModal={this.openUpdateModal} showDeleteModal={this.openDeleteModal} /> : null;
         return (
             <div>
                 <Card>
@@ -83,10 +84,10 @@ class TenantComp extends React.Component {
                     <Accordion.Collapse eventKey={this.props.dataKey}>
                         <Card.Body>
                             <div>
-                               email: {this.props.tenantData.email}
+                                email: {this.props.tenantData.email}
                             </div>
                             <div>
-                            Apartment: {this.props.tenantData.apartment}
+                                Apartment: {this.props.tenantData.apartment}
                             </div>
                             {committeeMemberView}
                         </Card.Body>
@@ -98,7 +99,7 @@ class TenantComp extends React.Component {
                         <Modal.Title>Tenant Update</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    <Form>
+                        <Form>
                             <Form.Group as={Row} controlId="formHorizontalName">
                                 <Form.Label column sm={2}>
                                     Name
@@ -112,7 +113,7 @@ class TenantComp extends React.Component {
                                     E-Mail
                                 </Form.Label>
                                 <Col sm={10}>
-                                    <Form.Control ref={this.emailInput} type="email" placeholder="E-Mail" defaultValue={this.props.tenantData.email}/>
+                                    <Form.Control ref={this.emailInput} type="email" placeholder="E-Mail" defaultValue={this.props.tenantData.email} />
                                 </Col>
                             </Form.Group>
 
@@ -129,7 +130,7 @@ class TenantComp extends React.Component {
                                     Apartment Number
                                 </Form.Label>
                                 <Col sm={10}>
-                                    <Form.Control ref={this.apartmentInput} type="text" placeholder="Apartment Number" defaultValue={this.props.tenantData.apartment}/>
+                                    <Form.Control ref={this.apartmentInput} type="text" placeholder="Apartment Number" defaultValue={this.props.tenantData.apartment} />
                                 </Col>
                             </Form.Group>
                         </Form>
@@ -144,7 +145,7 @@ class TenantComp extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                
+
                 <Modal show={showDeleteModal} onHide={this.closeDeleteModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete Tenant</Modal.Title>

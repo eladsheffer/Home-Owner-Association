@@ -25,7 +25,15 @@
         "password": "123",
         "apartment": 3,
         "isCommitteeMember": false
+    },
+    {
+        "id": 4,
+        "communityId": 2,
+        "name": "Jane Doe",
+        "email": "jane@jane.com",
+        "password": "123",
+        "apartment": 4,
+        "isCommitteeMember": false
     }
-
     
 ]

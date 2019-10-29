@@ -51,7 +51,7 @@ class MessageComp extends React.Component {
 
 
     deleteMessage() {
-        this.props.deleteMessage(this.props.dataKey);
+        this.props.deleteMessage(this.props.messageData, this.props.dataKey);
         this.closeDeleteModal();
     }
 
@@ -62,7 +62,7 @@ class MessageComp extends React.Component {
             this.props.messageData.priority = "info";
         else
             this.props.messageData.priority = "important";
-        this.props.updateMessage(this.props.dataKey, this.props.messageData);
+        this.props.updateMessage(this.props.messageData, this.props.dataKey);
         this.closeUpdateModal();
     }
     openUpdateModal() {
@@ -92,8 +92,9 @@ class MessageComp extends React.Component {
     render() {
         const { showUpdateModal } = this.state;
         const { showDeleteModal } = this.state;
+        const { activeUser } = this.props;
         let icon = this.props.messageData.priority === "info" ? <Info /> : <Important />;
-        let committeeMemberView = true ? <CommitteeMemberView showUpdateModal={this.openUpdateModal} showDeleteModal={this.openDeleteModal}/> : null;
+        let committeeMemberView = activeUser.isCommitteeMember ? <CommitteeMemberView showUpdateModal={this.openUpdateModal} showDeleteModal={this.openDeleteModal} /> : null;
         return (
             <div>
                 <Card>

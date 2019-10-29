@@ -1,6 +1,6 @@
 import React from 'react'
 import HoaNavbar from '../components/HoaNavbar';
-import { Form, Row, Col, Container, Image, Button, Modal } from 'react-bootstrap'
+import { Form, Row, Col, Container, Button, Modal } from 'react-bootstrap'
 import MessageList from '../components/MessageList';
 import { Redirect } from 'react-router-dom'
 
@@ -132,7 +132,7 @@ class MessagesPage extends React.Component {
                     <Container className="d-flex">
                         <Button className="ml-auto" variant="link" onClick={this.openModal}>New Message</Button>
                     </Container>
-                    <MessageList messages={messagesToDisplay} deleteMessage={this.props.deleteMessage} updateMessage={this.props.updateMessage}/>
+                    <MessageList messages={messagesToDisplay} deleteMessage={this.props.deleteMessage} updateMessage={this.props.updateMessage} activeUser={this.props.activeUser}/>
                 </Container>
 
                 <Modal show={showModal} onHide={this.closeModal} size="lg">

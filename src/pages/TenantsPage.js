@@ -1,6 +1,6 @@
 import React from 'react'
 import HoaNavbar from '../components/HoaNavbar';
-import { Form, Row, Col, Container, Image, Button, Modal } from 'react-bootstrap'
+import { Form, Row, Col, Container, Button, Modal } from 'react-bootstrap'
 import TenantList from '../components/TenantList';
 import { Redirect } from 'react-router-dom'
 
@@ -42,14 +42,13 @@ class TenantsPage extends React.Component {
             apartment: this.apartmentInput.current.value
             //img: this.state.newRecipeImg.URL,
         }
-        const tenants = this.props.tenants.push(newTenant);
-        this.setState({ tenants });
+        this.props.createTenant(newTenant);
         this.closeModal();
     }
 
     filterSearch(e) {
-        this.state.filterText = e.target.value;
-        this.setState(this.state);
+        const filterText = e.target.value;
+        this.setState({filterText});
     }
 
     render() {
@@ -65,7 +64,7 @@ class TenantsPage extends React.Component {
         let tenantsToDisplay=[];
 
             for (var i = 0; i < this.props.tenants.length; i++) {
-                this.state.index = i;
+                //this.state.index = i;
                 if (filterText === "" || this.props.tenants[i].name.toLowerCase().includes(filterText) || this.props.tenants[i].email.toLowerCase().includes(filterText) || this.props.tenants[i].apartment.toString().toLowerCase().includes(filterText)) {
                     tenantsToDisplay.push(this.props.tenants[i]);
                 }
@@ -86,7 +85,7 @@ class TenantsPage extends React.Component {
                     <Container className="d-flex">
                         <Button className="ml-auto" variant="link" onClick={this.openModal}>New Tenant</Button>
                     </Container>
-                    <TenantList tenants={tenantsToDisplay} deleteTenant={this.props.deleteTenant} updateTenant={this.props.updateTenant}/>
+                    <TenantList tenants={tenantsToDisplay} deleteTenant={this.props.deleteTenant} updateTenant={this.props.updateTenant} activeUser={activeUser}/>
                 </Container>
 
                 <Modal show={showModal} onHide={this.closeModal} size="lg">

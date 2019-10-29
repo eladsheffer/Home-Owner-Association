@@ -24,7 +24,7 @@ class MessageList extends React.Component {
 
         // }
 
-        const messageCards = messages.map((message, index) => <MessageComp dataKey={index} messageData={message}  deleteMessage={this.props.deleteMessage} updateMessage={this.props.updateMessage} />)
+        const messageCards = messages.map((message, index) => <MessageComp dataKey={index} messageData={message}  deleteMessage={this.props.deleteMessage} updateMessage={this.props.updateMessage} activeUser={this.props.activeUser}/>)
 
         return (
             <div>

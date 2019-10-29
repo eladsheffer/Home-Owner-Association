@@ -1,5 +1,5 @@
 import React from 'react'
-import { Accordion, Container, Modal, Button, Image, Form, Row, Col } from 'react-bootstrap'
+import { Accordion } from 'react-bootstrap'
 import TenantComp from '../components/TenantComp';
 
 
@@ -14,7 +14,7 @@ class TenantList extends React.Component {
     }
 
     render() {
-        const { tenants } = this.props;
+        const { tenants,activeUser } = this.props;
 
         // let tenantCards = [];
         // for (var i = 0; i < tenant.length; i++) {
@@ -24,7 +24,7 @@ class TenantList extends React.Component {
 
         // }
 
-        const tenantCards = tenants.map((tenant, index) => <TenantComp dataKey={index} tenantData={tenant}  deleteTenant={this.props.deleteTenant} updateTenant={this.props.updateTenant} />)
+        const tenantCards = tenants.map((tenant, index) => <TenantComp dataKey={index} tenantData={tenant}  deleteTenant={this.props.deleteTenant} updateTenant={this.props.updateTenant} activeUser={activeUser} />)
 
         return (
             <div>

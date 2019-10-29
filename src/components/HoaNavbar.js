@@ -15,7 +15,7 @@ class HoaNavbar extends React.Component {
     logout() {
         this.props.handleLogout();
 
-        if (window.location.hash != "#/") {
+        if (window.location.hash !== "#/") {
             this.setState({ redirectToHome: true })
         }
     }
@@ -31,7 +31,7 @@ class HoaNavbar extends React.Component {
         let signupLink = !activeUser ? <Nav.Link href="#/signup">Signup</Nav.Link> : null;
         let loginLink = !activeUser ? <Nav.Link href="#/login">Login</Nav.Link> : null;
         let logoutLink = activeUser ? <Nav.Link onClick={this.logout}>Logout</Nav.Link> : null;
-console.log(this.props.activeUser);
+
         return (
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="#/">Hoa Systems</Navbar.Brand>
