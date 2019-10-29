@@ -11,29 +11,35 @@ import IssuesPage from './pages/IssuesPage'
 import VotingPage from './pages/VotingPage'
 import jsonMessages from './data-model/messages'
 import jsonUsers from './data-model/users'
+import jsonCommunities from './data-model/Communities'
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       index: 0,
-      //activeUser: null,
-      activeUser: {
-        "id": 1,
-        "communityId": 1,
-        "name": "Nir Channes",
-        "email": "nir@nir.com",
-        "password": "123",
-        "apartment": 1,
-        "isCommitteeMember": true
-      },
+      activeUser: null,
+      // activeUser: {
+      //   "id": 1,
+      //   "communityId": 1,
+      //   "name": "Nir Channes",
+      //   "email": "nir@nir.com",
+      //   "password": "123",
+      //   "apartment": 1,
+      //   "isCommitteeMember": true
+      // },
       allUsers: jsonUsers,
       allMessages: jsonMessages,
-      //activeUserMessages: [],
-      //activeUserMessages:[],
-      activeUserMessages: jsonMessages.filter(message => message.communityId === 1),
-      activeUserTenants: jsonUsers.filter(tenant => tenant.communityId === 1),
+      allCommunities: jsonCommunities,
+      activeUserMessages: [],
+      activeUserTenants:[],
+      //activeUserMessages: jsonMessages.filter(message => message.communityId === 1),
+      //activeUserTenants: jsonUsers.filter(tenant => tenant.communityId === 1),
     }
+
+    this.createCommitteeMember = this.createCommitteeMember.bind(this);
+
     this.createMessage = this.createMessage.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
@@ -66,6 +72,19 @@ class App extends React.Component {
     this.setState({ allUsers, activeUserTenants });
   }
 
+  createCommitteeMember(newCommunity, newTenant) {
+    newCommunity.id = this.state.allCommunities[this.state.allCommunities.length - 1].id + 1;
+    newTenant.id = this.state.allUsers[this.state.allUsers.length - 1].id + 1;
+    newTenant.communityId=newCommunity.id;
+
+    const allCommunities = this.state.allCommunities.concat(newCommunity);
+    
+    const activeUserTenants = this.state.activeUserTenants.concat(newTenant);
+    const allUsers = this.state.allUsers.concat(newTenant);
+
+    this.setState({ allCommunities, allUsers, activeUserTenants });
+  }
+
   deleteMessage(message, index) {
     this.state.activeUserMessages.splice(index, 1);
 
@@ -84,17 +103,12 @@ class App extends React.Component {
 
     for (let i = 0; i < this.state.allMessages.length; i++) {
       if (this.state.allMessages[i].id === updatedMessage.id) {
-        this.state.allMessages[i] =this.updatedMessage;
+        this.state.allMessages[i] = this.updatedMessage;
         break;
       }
     }
 
     this.setState(this.state);
-
-    console.log(index);
-    console.log(updatedMessage);
-    console.log(this.state.activeUserMessages);
-    console.log(this.state.allMessages);
   }
 
   deleteTenant(tenant, index) {
@@ -113,7 +127,7 @@ class App extends React.Component {
     this.state.activeUserTenants[index] = updatedTenant;
     for (let i = 0; i < this.state.allUsers.length; i++) {
       if (this.state.allUsers[i].id === this.updateTenant.id) {
-        this.state.allMessages[i] =this.updatedTenant;
+        this.state.allMessages[i] = this.updatedTenant;
         break;
       }
     }
@@ -134,7 +148,7 @@ class App extends React.Component {
 
   render() {
 
-    const { activeUser, allUsers, activeUserMessages, activeUserTenants } = this.state;
+    const { activeUser, allUsers, activeUserMessages, activeUserTenants, allCommunities } = this.state;
 
     return (
       <Switch>
@@ -145,7 +159,7 @@ class App extends React.Component {
           <LoginPage users={allUsers} handleLogin={this.handleLogin} activeUser={activeUser} />
         </Route>
         <Route path="/signup">
-          <SignupPage activeUser={activeUser} handleLogout={this.handleLogout} />
+          <SignupPage activeUser={activeUser} handleLogout={this.handleLogout} user={allUsers} communities={allCommunities} createCommitteeMember={this.createCommitteeMember} handleLogin={this.handleLogin}/>
         </Route>
         <Route path="/dashboard">
           <DashboardPage activeUser={activeUser} handleLogout={this.handleLogout} />

@@ -39,7 +39,7 @@ class LoginPage extends React.Component {
 
     render() { 
         if (this.state.successLogin) {
-            return <Redirect to="/dashboard"/>
+            return <Redirect to="/messages"/>
         }
         return (  
             <div className="login">

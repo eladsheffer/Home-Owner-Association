@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "userId": 1,
+        "communityId": 1,
+        "title": "Voting on the Next Chairman",
+        "details": "we want to invite you to vote on the next chairman of the committee",
+        "createdAt": "2019-10-1",
+        "dueDate": "2019-10-15",
+        "options": ["Yossi", "dani"],
+        "votes": [
+            {
+                "Yosi": 7,
+                "Dani": 11
+            }
+        ]
+    },
+
+    {
+        "id": 1,
+        "userId": 1,
+        "communityId": 1,
+        "title": "Voting on Renovations",
+        "details": "we offer to make renovations of the entrance with the cost of 10,000 NIS",
+        "createdAt": "2019-10-15",
+        "dueDate": "2019-10-31",
+        "options": ["Yes","No"],
+        "votes": [
+            {
+                "Yes": 10,
+                "No": 8
+            }
+        ]
+    }
+  
+    
+]
