@@ -1,5 +1,5 @@
 import React from 'react'
-import { Accordion, Card, Button, Modal, Image, Form, Row, Col } from 'react-bootstrap'
+import { Accordion, Card, Button, Modal, Form, Row, Col } from 'react-bootstrap'
 
 class CommitteeMemberView extends React.Component {
     constructor(props) {

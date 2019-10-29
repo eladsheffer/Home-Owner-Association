@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Switch, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage';
@@ -19,13 +18,37 @@ class App extends React.Component {
     this.state = {
       index: 0,
       activeUser: null,
+    //   activeUser:     {
+    //     "id": 1,
+    //     "communityId": 1,
+    //     "name": "Nir Channes",
+    //     "email": "nir@nir.com",
+    //     "password": "123",
+    //     "apartment": 1,
+    //     "isCommitteeMember": true
+    // },
       allUsers: jsonUsers,
       allMessages: jsonMessages,
+      activeUserMessages: []
+      //activeUserMessages: jsonMessages.filter(message => message.communityId === 1)
     }
+    this.createMessage = this.createMessage.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
     this.updateMessage = this.updateMessage.bind(this);
     this.deleteTenant = this.deleteTenant.bind(this);
     this.updateTenant = this.updateTenant.bind(this);
+
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  createMessage(newMessage){
+    newMessage.communityId=this.state.activeUser.communityId;
+
+    const allMessages = this.state.allMessages.concat(newMessage);
+    const activeUserMessages = this.state.activeUserMessages.concat(newMessage);
+
+    this.setState({allMessages, activeUserMessages});
   }
 
   deleteMessage(index) {
@@ -48,32 +71,46 @@ class App extends React.Component {
     this.setState(this.state);
   }
 
+  handleLogout() {
+    this.setState({activeUser: null});
+  }
+
+  handleLogin(activeUser) {
+
+    const activeUserMessages = this.state.allMessages.filter(message => message.communityId === activeUser.communityId)
+
+    this.setState({activeUser, activeUserMessages});
+  }
+
   render() {
+
+    const { activeUser, allUsers, activeUserMessages } = this.state;
+
     return (
       <Switch>
         <Route exact path="/">
-          <HomePage />
+          <HomePage activeUser={activeUser} handleLogout={this.handleLogout}/>
         </Route>
         <Route path="/login">
-          <LoginPage />
+          <LoginPage users={allUsers} handleLogin={this.handleLogin} activeUser={activeUser}/>
         </Route>
         <Route path="/signup">
-          <SignupPage />
+          <SignupPage activeUser={activeUser} handleLogout={this.handleLogout}/>
         </Route>
         <Route path="/dashboard">
-          <DashboardPage />
+          <DashboardPage activeUser={activeUser} handleLogout={this.handleLogout}/>
         </Route>
         <Route path="/tenants">
-          <TenantsPage tenants={this.state.allUsers} dataKey={this.state.index} deleteTenant={this.deleteTenant} updateTenant={this.updateTenant} />
+          <TenantsPage tenants={this.state.allUsers} dataKey={this.state.index} deleteTenant={this.deleteTenant} updateTenant={this.updateTenant} activeUser={activeUser} handleLogout={this.handleLogout}/>
         </Route>
         <Route path="/messages">
-          <MessagesPage messages={this.state.allMessages} dataKey={this.state.index} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage} />
+          <MessagesPage messages={this.state.activeUserMessages} dataKey={this.state.index} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage} createMessage={this.createMessage} activeUser={activeUser} handleLogout={this.handleLogout}/>
         </Route>
         <Route path="/issues">
-          <IssuesPage />
+          <IssuesPage activeUser={activeUser} handleLogout={this.handleLogout}/>
         </Route>
         <Route path="/voting">
-          <VotingPage />
+          <VotingPage activeUser={activeUser} handleLogout={this.handleLogout}/>
         </Route>
       </Switch>
     );

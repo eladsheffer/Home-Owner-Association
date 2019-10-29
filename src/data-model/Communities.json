@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "address": "4 Bilaik St.",
+        "city": "Tel Aviv"
+    },
+    {
+        "id": 2,
+        "address": "56 Moshe Dayan St.",
+        "city": "Ramat Gan"
+    },
+
+    {
+        "id": 3,
+        "address": "5 Ben Gurion St.",
+        "city": "Hertzlia"
+    }
+
+    
+]

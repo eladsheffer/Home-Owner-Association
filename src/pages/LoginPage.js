@@ -10,7 +10,7 @@ class LoginPage extends React.Component {
             successLogin: false
         }
         this.emailInput = React.createRef();
-        this.pwdInput = React.createRef();
+        this.passwordInput = React.createRef();
 
         this.login = this.login.bind(this);
     }
@@ -21,7 +21,7 @@ class LoginPage extends React.Component {
         let newActiveUser = null;
         for (let i = 0; i < users.length && !newActiveUser; i++) {
             if (users[i].email === this.emailInput.current.value &&
-                users[i].pwd === this.pwdInput.current.value) {
+                users[i].password === this.passwordInput.current.value) {
                     newActiveUser = users[i];
                 }
         }
@@ -59,7 +59,7 @@ class LoginPage extends React.Component {
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control ref={this.pwdInput}  type="password" placeholder="Password"/>
+                    <Form.Control ref={this.passwordInput}  type="password" placeholder="Password"/>
                 </Form.Group>
                 <Button variant="success" type="button" block onClick={this.login}>
                     Login

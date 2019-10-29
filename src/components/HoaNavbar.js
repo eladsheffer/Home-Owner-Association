@@ -1,13 +1,37 @@
 import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
 
 class HoaNavbar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            redirectToHome: false
+        }
+
+        this.logout = this.logout.bind(this);
     }
 
+    logout() {
+        this.props.handleLogout();
+
+        if (window.location.hash != "#/") {
+            this.setState({ redirectToHome: true })
+        }
+    }
     render() {
+
+        const { activeUser } = this.props;
+        const { redirectToHome } = this.state;
+
+        if (redirectToHome) {
+            return <Redirect to="/"/>
+        }
+        
+        let signupLink = !activeUser ? <Nav.Link href="#/signup">Signup</Nav.Link> : null;
+        let loginLink = !activeUser ? <Nav.Link href="#/login">Login</Nav.Link> : null;
+        let logoutLink = activeUser ? <Nav.Link onClick={this.logout}>Logout</Nav.Link> : null;
+console.log(this.props.activeUser);
         return (
             <Navbar bg="light" expand="lg">
                 <Navbar.Brand href="#/">Hoa Systems</Navbar.Brand>
@@ -21,8 +45,9 @@ class HoaNavbar extends React.Component {
                         <Nav.Link href="#/voting">Voting</Nav.Link>
                     </Nav>
                     <Nav className="ml-auto">
-                        <Nav.Link href="#/login">Login</Nav.Link>
-                        <Nav.Link href="#/">Logout</Nav.Link>
+                        {signupLink}
+                        {loginLink}
+                        {logoutLink}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

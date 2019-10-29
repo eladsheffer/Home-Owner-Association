@@ -1,6 +1,5 @@
 import React from 'react'
-import { Accordion, Container, Modal, Button, Image, Form, Row, Col } from 'react-bootstrap'
-import Message from '../data-model/Message';
+import { Accordion } from 'react-bootstrap'
 import MessageComp from '../components/MessageComp';
 
 

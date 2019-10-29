@@ -2,6 +2,7 @@ import React from 'react'
 import HoaNavbar from '../components/HoaNavbar';
 import { Form, Row, Col, Container, Image, Button, Modal } from 'react-bootstrap'
 import TenantList from '../components/TenantList';
+import { Redirect } from 'react-router-dom'
 
 class TenantsPage extends React.Component {
     constructor(props) {
@@ -52,7 +53,13 @@ class TenantsPage extends React.Component {
     }
 
     render() {
+
+        if(!this.props.activeUser)
+        return <Redirect to="/"/>
+
         const { showModal } = this.state;
+        const { activeUser, handleLogout } = this.props;
+
         let filterText = this.state.filterText.toLowerCase();
 
         let tenantsToDisplay=[];
@@ -66,7 +73,7 @@ class TenantsPage extends React.Component {
 
         return (
             <div>
-                <HoaNavbar />
+                <HoaNavbar activeUser={activeUser} handleLogout={handleLogout}/>
                 <Container>
                     <h1>Tenants</h1>
                     <Form>

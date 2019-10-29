@@ -8,9 +8,11 @@ class DashboardPage extends React.Component {
     }
 
     render() { 
+        const { activeUser, handleLogout } = this.props;
+console.log(activeUser);
         return (  
             <div>
-                <HoaNavbar/>
+                <HoaNavbar activeUser={activeUser} handleLogout={handleLogout}/>
                 <h1>Dashboard</h1>
             </div>
             

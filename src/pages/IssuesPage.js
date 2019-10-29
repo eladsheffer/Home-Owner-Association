@@ -8,9 +8,11 @@ class IssuesPage extends React.Component {
     }
 
     render() { 
+        const { activeUser, handleLogout } = this.props;
+
         return (  
             <div>
-                <HoaNavbar/>
+                <HoaNavbar activeUser={activeUser} handleLogout={handleLogout}/>
                 <h1>Issues</h1>
             </div>
             

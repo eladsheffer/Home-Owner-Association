@@ -2,6 +2,7 @@ import React from 'react'
 import HoaNavbar from '../components/HoaNavbar';
 import { Form, Row, Col, Container, Image, Button, Modal } from 'react-bootstrap'
 import MessageList from '../components/MessageList';
+import { Redirect } from 'react-router-dom'
 
 class MessagesPage extends React.Component {
     constructor(props) {
@@ -49,29 +50,34 @@ class MessagesPage extends React.Component {
             createdAt: new Date(),
             //img: this.state.newRecipeImg.URL,
         }
-        
-        const messages = this.props.messages.push(newMessage);
-        this.setState({ messages });
+
+        this.props.createMessage(newMessage);
         this.closeModal();
     }
 
     filterSearch(e) {
-        this.state.filterText = e.target.value;
-        this.setState(this.state);
+        const filterText = e.target.value;
+        this.setState({filterText});
     }
 
     filterPriority(e) {
-        this.state.priorityFilter = e.target.value;
-        this.setState(this.state);
+        let priorityFilter = e.target.value;
+        this.setState({priorityFilter});
     }
 
     changeSort(e) {
-        this.state.sortBy = e.target.id;
-        this.setState(this.state);
+        let sortBy = e.target.id;
+        this.setState({sortBy});
     }
 
     render() {
+
+        if(!this.props.activeUser)
+        return <Redirect to="/"/>
+
         const { showModal } = this.state;
+        const { activeUser, handleLogout } = this.props;
+
         let filterText = this.state.filterText.toLowerCase();
         let priorityFilter = this.state.priorityFilter;
         let messagesToDisplay=[];
@@ -91,7 +97,7 @@ class MessagesPage extends React.Component {
             }));
 
             for (var i = 0; i < this.props.messages.length; i++) {
-                this.state.index = i;
+                //this.state.index = i;
                 if ((filterText === "" || this.props.messages[i].title.toLowerCase().includes(filterText) || this.props.messages[i].details.toLowerCase().includes(filterText)) && (priorityFilter === "all" || this.props.messages[i].priority === priorityFilter)) {
                     messagesToDisplay.push(this.props.messages[i]);
                 }
@@ -99,7 +105,7 @@ class MessagesPage extends React.Component {
 
         return (
             <div>
-                <HoaNavbar />
+                <HoaNavbar activeUser={activeUser} handleLogout={handleLogout}/>
                 <Container>
                     <h1>Messages</h1>
                     <Form>
