@@ -21,9 +21,6 @@ class HomePage extends React.Component {
                         <p>
                             <Image src="https://landerapp.com/blog/wp-content/uploads/2016/07/20160707-RealStateJump.gif" />
                         </p>
-                        <p>
-                            <Button variant="primary" href="#/login">Login</Button>
-                        </p>
                     </Container>
                 </Jumbotron>
             </div>

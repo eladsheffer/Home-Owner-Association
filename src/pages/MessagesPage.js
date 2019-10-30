@@ -168,14 +168,14 @@ class MessagesPage extends React.Component {
                                     <Form.Check inline type="radio" label="important" name="formHorizontalRadios" id="formHorizontalImportant" />
                                 </Col>
                             </Form.Group>
-                            <Form.Group as={Row} controlId="formHorizontalPassword">
+                            {/* <Form.Group as={Row} controlId="formHorizontalPassword">
                                 <Form.Label column sm={2}>
                                     Image
                                 </Form.Label>
                                 <Col sm={6}>
                                     <Form.Control type="file" placeholder="Recipe image URL" accept="image/*" onChange={this.imgChange} />
                                 </Col>
-                            </Form.Group>
+                            </Form.Group> */}
 
                         </Form>
                     </Modal.Body>
