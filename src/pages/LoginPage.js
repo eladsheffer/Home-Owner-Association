@@ -15,8 +15,11 @@ class LoginPage extends React.Component {
         this.login = this.login.bind(this);
     }
 
-    login() {
+    login(event) {
 
+        if (!(event.charCode === 13 || event.target.type ==="button"))
+            return;
+            
         const { users } = this.props;
         let newActiveUser = null;
         for (let i = 0; i < users.length && !newActiveUser; i++) {
@@ -48,7 +51,7 @@ class LoginPage extends React.Component {
             <Alert variant="danger" show={this.state.invalidLogin}>
                 Invalid email or password!
             </Alert>
-            <Form>
+            <Form onKeyPress={this.login}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control ref={this.emailInput} type="email" placeholder="Enter email"/>

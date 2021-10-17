@@ -126,8 +126,8 @@ class App extends React.Component {
   updateTenant(updatedTenant, index) {
     this.state.activeUserTenants[index] = updatedTenant;
     for (let i = 0; i < this.state.allUsers.length; i++) {
-      if (this.state.allUsers[i].id === this.updateTenant.id) {
-        this.state.allMessages[i] = this.updatedTenant;
+      if (this.state.allUsers[i].id === this.updatedTenant.id) {
+        this.state.allUsers[i] = this.updatedTenant;
         break;
       }
     }
@@ -165,10 +165,10 @@ class App extends React.Component {
           <DashboardPage activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/tenants">
-          <TenantsPage tenants={activeUserTenants} dataKey={this.state.index} deleteTenant={this.deleteTenant} updateTenant={this.updateTenant} createTenant={this.createTenant} activeUser={activeUser} handleLogout={this.handleLogout} />
+          <TenantsPage tenants={activeUserTenants} deleteTenant={this.deleteTenant} updateTenant={this.updateTenant} createTenant={this.createTenant} activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/messages">
-          <MessagesPage messages={activeUserMessages} dataKey={this.state.index} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage} createMessage={this.createMessage} activeUser={activeUser} handleLogout={this.handleLogout} />
+          <MessagesPage messages={activeUserMessages} deleteMessage={this.deleteMessage} updateMessage={this.updateMessage} createMessage={this.createMessage} activeUser={activeUser} handleLogout={this.handleLogout} />
         </Route>
         <Route path="/issues">
           <IssuesPage activeUser={activeUser} handleLogout={this.handleLogout} />
