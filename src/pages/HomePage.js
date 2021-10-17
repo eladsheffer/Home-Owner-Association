@@ -19,7 +19,7 @@ class HomePage extends React.Component {
                         <h1 className="display-3">Home Owner Association</h1>
                         <p>Communicate with your community</p>
                         <p>
-                            <Image src="https://landerapp.com/blog/wp-content/uploads/2016/07/20160707-RealStateJump.gif" />
+                            <Image src="https://landerapp.com/blog/wp-content/uploads/2016/07/20160707-RealStateJump.gif" className="logo" />
                         </p>
                     </Container>
                 </Jumbotron>
