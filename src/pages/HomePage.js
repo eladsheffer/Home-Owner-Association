@@ -15,11 +15,11 @@ class HomePage extends React.Component {
             <div>
                 <HoaNavbar activeUser={activeUser} handleLogout={handleLogout} />
                 <Jumbotron className="center">
-                    <Container>
+                    <Container className="logo">
                         <h1>Home Owner Association</h1>
                         <p>Communicate with your community</p>
                         <p>
-                            <Image src="https://landerapp.com/blog/wp-content/uploads/2016/07/20160707-RealStateJump.gif" className="logo" />
+                            <Image src="https://landerapp.com/blog/wp-content/uploads/2016/07/20160707-RealStateJump.gif" />
                         </p>
                     </Container>
                 </Jumbotron>
