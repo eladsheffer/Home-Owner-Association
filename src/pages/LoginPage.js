@@ -62,7 +62,7 @@ class LoginPage extends React.Component {
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control ref={this.passwordInput}  type="password" placeholder="Password" defaultValue="123"/>
+                    <Form.Control ref={this.passwordInput}  type="password" placeholder="Password" value="123"/>
                 </Form.Group>
                 <Button variant="success" type="button" block onClick={this.login}>
                     Login
