@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/home-owner-association/static/css/main.c5d3d8c7.chunk.css",
+    "main.js": "/home-owner-association/static/js/main.d3c3fa3a.chunk.js",
+    "main.js.map": "/home-owner-association/static/js/main.d3c3fa3a.chunk.js.map",
+    "runtime-main.js": "/home-owner-association/static/js/runtime-main.1d0fb1df.js",
+    "runtime-main.js.map": "/home-owner-association/static/js/runtime-main.1d0fb1df.js.map",
+    "static/css/2.0624914a.chunk.css": "/home-owner-association/static/css/2.0624914a.chunk.css",
+    "static/js/2.10c2954e.chunk.js": "/home-owner-association/static/js/2.10c2954e.chunk.js",
+    "static/js/2.10c2954e.chunk.js.map": "/home-owner-association/static/js/2.10c2954e.chunk.js.map",
+    "index.html": "/home-owner-association/index.html",
+    "precache-manifest.b8a59a949ee4846ae58aeeefbd1ef1a9.js": "/home-owner-association/precache-manifest.b8a59a949ee4846ae58aeeefbd1ef1a9.js",
+    "service-worker.js": "/home-owner-association/service-worker.js",
+    "static/css/2.0624914a.chunk.css.map": "/home-owner-association/static/css/2.0624914a.chunk.css.map",
+    "static/css/main.c5d3d8c7.chunk.css.map": "/home-owner-association/static/css/main.c5d3d8c7.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1d0fb1df.js",
+    "static/css/2.0624914a.chunk.css",
+    "static/js/2.10c2954e.chunk.js",
+    "static/css/main.c5d3d8c7.chunk.css",
+    "static/js/main.d3c3fa3a.chunk.js"
+  ]
+}
